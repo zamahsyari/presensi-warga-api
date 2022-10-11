@@ -16,7 +16,15 @@ module.exports = {
     },
     get: async (key) => {
         try{
-            return await client.get(key)
+            const res = new Promise((resolve, reject) => {
+                client.get(key, (err, reply) => {
+                    if(!err){
+                        resolve(reply)
+                    }
+                    reject(err)
+                })
+            })
+            return await res
         }catch(e){
             throw e
         }
