@@ -11,6 +11,6 @@ exports.user = () => {
 exports.auth = () => {
     return [
         body('username').exists().bail().isString().withMessage('username is not valid'),
-        body('password').exists().bail().isLength({min: 5}).withMessage('password min 5 chars'),
+        body('password').exists().bail().isLength({min: 1}).withMessage('password min 1 chars'),
     ]
 }

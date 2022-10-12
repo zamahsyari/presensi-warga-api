@@ -1,4 +1,5 @@
 const repo = require('./repo')
+const majlisRepo = require('../majlis/repo')
 const sha256 = require('sha256')
 const md5 = require('md5')
 const redisHelper = require('../helper/redis')
@@ -22,21 +23,37 @@ exports.register = async (data) => {
 
 exports.login = async (data) => {
     const checkEmail = await repo.findByKey('user_name', data.username)
-    if(checkEmail.length < 1){
+    const checkMajlis = await majlisRepo.findByKey('office_code', data.username)
+    if(checkEmail.length < 1 && checkMajlis.length < 1){
         throw { status: 400, code: 100, message: 'email not found' }
     }
     const hashed = md5(data.password)
-    if(checkEmail[0].user_password != hashed){
-        throw { status: 400, code: 200, message: 'invalid credential' }
-    }
-    const uuid = v4()
-    await redisHelper.set(uuid, JSON.stringify({
-        username: data.username
-    }))
-    return {
-        id: checkEmail[0].user_id,
-        username: checkEmail[0].user_name,
-        token: uuid
+    if(checkEmail.length > 0){
+        if(checkEmail[0].user_password != hashed){
+            throw { status: 400, code: 200, message: 'invalid credential' }
+        }
+        const uuid = v4()
+        await redisHelper.set(uuid, JSON.stringify({
+            username: data.username
+        }))
+        return {
+            id: checkEmail[0].user_id,
+            username: checkEmail[0].user_name,
+            token: uuid
+        }
+    }else{
+        if(checkMajlis[0].office_password != hashed){
+            throw { status: 400, code: 200, message: 'invalid credential' }
+        }
+        const uuid = v4()
+        await redisHelper.set(uuid, JSON.stringify({
+            username: data.username
+        }))
+        return {
+            id: checkMajlis[0].office_id,
+            username: checkMajlis[0].office_code,
+            token: uuid
+        }
     }
 }
 
