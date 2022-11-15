@@ -39,7 +39,8 @@ exports.login = async (data) => {
         return {
             id: checkEmail[0].user_id,
             username: checkEmail[0].user_name,
-            token: uuid
+            token: uuid,
+            office_id: null
         }
     }else{
         if(checkMajlis[0].office_password != hashed){
@@ -52,7 +53,8 @@ exports.login = async (data) => {
         return {
             id: checkMajlis[0].office_id,
             username: checkMajlis[0].office_code,
-            token: uuid
+            token: uuid,
+            office_id: checkMajlis[0].office_id
         }
     }
 }
