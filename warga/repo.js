@@ -18,7 +18,7 @@ exports.findAll = (params) => {
             }else if(key == 'office_id'){
                 query += ` AND o.${key} = "${value}"`
             }else{
-                query += ` AND ${key} = ${value}`
+                query += ` AND ${tableName}.${key} = ${value}`
             }
         }
     }
@@ -44,7 +44,7 @@ exports.findAllCount = (params) => {
             }else if(key == 'office_id'){
                 query += ` AND o.${key} = "${value}"`
             }else{
-                query += ` AND ${key} = ${value}`
+                query += ` AND ${tableName}.${key} = ${value}`
             }
         }
     }

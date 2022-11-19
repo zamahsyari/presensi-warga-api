@@ -14,7 +14,7 @@ exports.findAll = (params) => {
             if(key == 'username_pengguna' || key == 'email_pengguna'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else{
-                query += ` AND ${key} = ${value}`
+                query += ` AND ${tableName}.${key} = ${value}`
             }
         }
     }
@@ -36,7 +36,7 @@ exports.findAllCount = (params) => {
             if(key == 'username_pengguna' || key == 'email_pengguna'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else{
-                query += ` AND ${key} = ${value}`
+                query += ` AND ${tableName}.${key} = ${value}`
             }
         }
     }
