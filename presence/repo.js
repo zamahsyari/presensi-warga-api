@@ -19,7 +19,7 @@ exports.findAll = (params) => {
             if(key == 'name' || key == 'description'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else{
-                query += ` AND ${tableName}.${key} = ${value}`
+                query += ` AND pr.${key} = ${value}`
             }
         }
     }
