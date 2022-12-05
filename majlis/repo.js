@@ -138,7 +138,6 @@ exports.findCabangCount = (code, params) => {
         const value = params.sort.split(':')[1]
         query += ` ORDER BY ${key} ${value}`
     }
-    query += ` LIMIT ${params.per_page} OFFSET ${getOffset(params)}`
     return db.execute(query)
 }
 
