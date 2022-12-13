@@ -9,10 +9,10 @@ const getTotalPage = (total, perPage) => {
 }
 
 exports.findAll = async (params) => {
-    const data = await repo.findAll(params)
+    let data = await repo.findAll(params)
     const total = await repo.findAllCount(params)
     const baseURL = 'http://103.82.242.44:5000/files'
-    data.map(item => {
+    data = data.map(item => {
         return {
             ...item,
             member_image: `${baseURL}/${item.member_image}`
