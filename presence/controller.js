@@ -68,4 +68,15 @@ exports.init = (app) => {
             res.status(500).json(e.toString())
         }
     })
+    app.get('/stats-presences/:id', middleware.auth, async (req, res) => {
+        try{
+            const result = await service.getStats(req.params.id)
+            res.send(result)
+        }catch(e){
+            if(e.status){
+                res.status(e.status).json(e)
+            }
+            res.status(500).json(e.toString())
+        }
+    })
 }
