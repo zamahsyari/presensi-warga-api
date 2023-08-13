@@ -13,6 +13,10 @@ exports.findAll = (params) => {
             const value = params.filter[i].split(':')[1]
             if(key == 'name' || key == 'description'){
                 query += ` AND ${key} LIKE "%${value}%"`
+            }else if(key == 'from'){
+                query += ` AND start_at >= DATE("%${value}%")`
+            }else if(key == 'to'){
+                query += ` AND start_at <= DATE("%${value}%")`
             }else{
                 query += ` AND ${tableName}.${key} = ${value}`
             }
@@ -35,6 +39,10 @@ exports.findAllCount = (params) => {
             const value = params.filter[i].split(':')[1]
             if(key == 'name' || key == 'description'){
                 query += ` AND ${key} LIKE "%${value}%"`
+            }else if(key == 'from'){
+                query += ` AND start_at >= DATE("%${value}%")`
+            }else if(key == 'to'){
+                query += ` AND start_at <= DATE("%${value}%")`
             }else{
                 query += ` AND ${tableName}.${key} = ${value}`
             }
