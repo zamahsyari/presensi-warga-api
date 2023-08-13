@@ -14,9 +14,9 @@ exports.findAll = (params) => {
             if(key == 'name' || key == 'description'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else if(key == 'from'){
-                query += ` AND start_at >= DATE("%${value}%")`
+                query += ` AND start_at >= DATE("${value}")`
             }else if(key == 'to'){
-                query += ` AND start_at <= DATE("%${value}%")`
+                query += ` AND start_at <= DATE("${value}")`
             }else{
                 query += ` AND ${tableName}.${key} = ${value}`
             }
@@ -28,6 +28,7 @@ exports.findAll = (params) => {
         query += ` ORDER BY ${key} ${value}`
     }
     query += ` LIMIT ${params.per_page} OFFSET ${getOffset(params)}`
+    console.log('query', query)
     return db.execute(query)
 }
 
@@ -40,9 +41,9 @@ exports.findAllCount = (params) => {
             if(key == 'name' || key == 'description'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else if(key == 'from'){
-                query += ` AND start_at >= DATE("%${value}%")`
+                query += ` AND start_at >= DATE("${value}")`
             }else if(key == 'to'){
-                query += ` AND start_at <= DATE("%${value}%")`
+                query += ` AND start_at <= DATE("${value}")`
             }else{
                 query += ` AND ${tableName}.${key} = ${value}`
             }
