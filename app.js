@@ -10,6 +10,7 @@ const majlisController = require('./majlis/controller')
 const eventController = require('./event/controller')
 const presenceController = require('./presence/controller')
 const wargaController = require('./warga/controller')
+const sessionController = require('./session/controller')
 
 dbHelper.init()
 redisHelper.init()
@@ -22,6 +23,7 @@ majlisController.init(app)
 eventController.init(app)
 presenceController.init(app)
 wargaController.init(app)
+sessionController.init(app)
 
 app.get('/', (req, res) => {
   res.send('Health Check Completed')
