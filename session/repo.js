@@ -6,7 +6,7 @@ const getOffset = (params) => {
 }
 
 exports.findAll = (params) => {
-    let query = `SELECT ${tableName}.*, office_name FROM ${tableName} JOIN offices ON ${tableName}.office_id = offices.office_id WHERE 1=1`
+    let query = `SELECT ${tableName}.*, office_name FROM ${tableName} JOIN offices ON ${tableName}.offices_id = offices.office_id WHERE 1=1`
     if(params.filter){
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
