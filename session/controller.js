@@ -35,7 +35,7 @@ exports.init = (app) => {
         }
     })
     // admin
-    app.post('/session', middleware.auth, validator.eventPost(), middleware.validate, async (req, res) => {
+    app.post('/session', middleware.auth, validator.sessionPost(), middleware.validate, async (req, res) => {
         try{
             const result = await service.add(req.body)
             res.send(result)
@@ -46,7 +46,7 @@ exports.init = (app) => {
             res.status(500).json(e.toString())
         }
     })
-    app.put('/session/:id', middleware.auth, validator.eventPut(), middleware.validate, async (req, res) => {
+    app.put('/session/:id', middleware.auth, validator.sessionPost(), middleware.validate, async (req, res) => {
         try{
             const result = await service.update(req.params.id, req.body)
             res.send(result)
