@@ -39,7 +39,6 @@ exports.add = async (data) => {
         ...data,
         delegation_id: 0,
         province_id: 1,
-        member_address: '',
         member_email: '',
         member_birthplace: '',
         member_birthday: new Date(),
