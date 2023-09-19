@@ -37,6 +37,7 @@ exports.findById = async (id) => {
 exports.add = async (data) => {
     const newdata = {
         ...data,
+        member_id: null,
         delegation_id: 0,
         province_id: 1,
         member_email: '',
