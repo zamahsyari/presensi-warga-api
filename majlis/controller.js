@@ -40,4 +40,16 @@ exports.init = (app) => {
             res.status(500).json(e.toString())
         }
     })
+
+    app.get('/majlis/:id/detail', middleware.auth, async (req, res) => {
+        try{
+            const result = await service.findById(req.params.id)
+            res.send(result)
+        }catch(e){
+            if(e.status){
+                res.status(e.status).json(e)
+            }
+            res.status(500).json(e.toString())
+        }
+    })
 }

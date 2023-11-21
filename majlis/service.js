@@ -27,3 +27,12 @@ exports.findCabangByPerwakilan = async (code, params) => {
         total_page: getTotalPage(total[0].total, params.per_page)
     }
 }
+
+exports.findById = async (id) => {
+    const data = await repo.findByKey('office_id', id)
+    return {
+        data,
+        total_data: 1,
+        total_page: 1
+    }
+}
