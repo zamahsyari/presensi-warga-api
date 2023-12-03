@@ -39,6 +39,7 @@ exports.login = async (data) => {
         return {
             id: checkEmail[0].user_id,
             username: checkEmail[0].user_name,
+            name: checkEmail[0].user_name,
             token: uuid,
             office_id: null
         }
@@ -53,6 +54,7 @@ exports.login = async (data) => {
         return {
             id: checkMajlis[0].office_id,
             username: checkMajlis[0].office_code,
+            name: checkMajlis[0].office_name,
             token: uuid,
             office_id: checkMajlis[0].office_id
         }
@@ -95,13 +97,21 @@ exports.add = async (data) => {
     }
 }
 
-exports.update = async (id, data) => {
+exports.updatePassword = async (id, data) => {
     const password = sha256(data.user_password)
     const newdata = {
         ...data,
         user_password: password
     }
     return await repo.updateById(id, newdata)
+}
+
+exports.updateOfficePassword = async (id, data) => {
+    const password = md5(data.user_password)
+    return await majlisRepo.updateById(id, {
+        ...majlis,
+        office_password: password
+    })
 }
 
 exports.delete = async (id) => {

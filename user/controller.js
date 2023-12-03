@@ -67,9 +67,20 @@ exports.init = (app) => {
             res.status(500).json(e.toString())
         }
     })
-    app.put('/users/:id', middleware.auth, validator.user(), async (req, res) => {
+    app.put('/users/password/:id', middleware.auth, validator.user(), async (req, res) => {
         try{
-            const result = await service.update(req.params.id, req.body)
+            const result = await service.updatePassword(req.params.id, req.body)
+            res.send(result)
+        }catch(e){
+            if(e.status){
+                res.status(e.status).json(e)
+            }
+            res.status(500).json(e.toString())
+        }
+    })
+    app.put('/users/office-password/:id', middleware.auth, validator.user(), async (req, res) => {
+        try{
+            const result = await service.updateOfficePassword(req.params.id, req.body)
             res.send(result)
         }catch(e){
             if(e.status){
