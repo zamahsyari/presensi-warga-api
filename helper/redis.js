@@ -2,7 +2,7 @@ require('dotenv').config()
 var redis = require('redis')
 var client = redis.createClient({
     legacyMode: true,
-    url: `redis://:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}`
+    url: `redis://${process.env.REDIS_HOST}`
 })
 const { cli } = require('winston/lib/winston/config')
 
