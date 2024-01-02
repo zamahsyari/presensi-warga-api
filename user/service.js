@@ -98,7 +98,7 @@ exports.add = async (data) => {
 }
 
 exports.updatePassword = async (id, data) => {
-    const password = sha256(data.user_password)
+    const password = md5(data.user_password)
     const newdata = {
         ...data,
         user_password: password
