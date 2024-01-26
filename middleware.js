@@ -3,20 +3,24 @@ const logger = require('./helper/winston')
 const redisHelper = require('./helper/redis')
 
 exports.auth = async (req, res, next) => {
-  const authorization = req.headers.authorization
-  if(authorization == undefined){
-    return res.status(401).end()
-  }
-  const splitted = authorization.split(' ')
-  if(splitted.length < 1){
+    const authorization = req.headers.authorization
+    const staticToken = process.env.STATIC_TOKEN
+    if(authorization == undefined){
       return res.status(401).end()
-  }
-  const token = splitted[1]
-  const check = await redisHelper.get(token)
-  if(check){
+    }
+    const splitted = authorization.split(' ')
+    if(splitted.length < 1){
+        return res.status(401).end()
+    }
+    const token = splitted[1]
+    if (token === staticToken) {
       return next()
-  }
-  return res.status(401).end()
+    }
+    const check = await redisHelper.get(token)
+    if(check){
+        return next()
+    }
+    return res.status(401).end()
 }
 
 exports.validate = (req, res, next) => {

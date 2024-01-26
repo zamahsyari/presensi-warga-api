@@ -1,5 +1,5 @@
 const db = require('../helper/mysql')
-const tableName = 'offices'
+const tableName = 'majlis'
 
 const getOffset = (params) => {
     return (params.page - 1) * params.per_page
@@ -11,7 +11,7 @@ exports.findAll = (params) => {
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
             const value = params.filter[i].split(':')[1]
-            if(key == 'username_pengguna' || key == 'email_pengguna'){
+            if(key == 'nama_majlis' || key == 'alamat_majlis'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else{
                 query += ` AND ${tableName}.${key} = ${value}`
@@ -33,7 +33,7 @@ exports.findAllCount = (params) => {
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
             const value = params.filter[i].split(':')[1]
-            if(key == 'username_pengguna' || key == 'email_pengguna'){
+            if(key == 'nama_majlis' || key == 'alamat_majlis'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else{
                 query += ` AND ${tableName}.${key} = ${value}`
@@ -54,12 +54,12 @@ exports.findByKey = (key, value) => {
 }
 
 exports.findPerwakilan = (params) => {
-    let query = `SELECT * FROM ${tableName} WHERE office_code not like "%.%" and office_code <> "-" and office_code not like "b%"`
+    let query = `SELECT * FROM ${tableName} WHERE kode_majlis not like "%.%" and kode_majlis <> "-" and kode_majlis not like "b%"`
     if(params.filter){
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
             const value = params.filter[i].split(':')[1]
-            if(key == 'office_name' || key == 'office_address'){
+            if(key == 'nama_majlis' || key == 'alamat_majlis'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else{
                 query += ` AND ${key} = ${value}`
@@ -67,7 +67,7 @@ exports.findPerwakilan = (params) => {
         }
     }
     if(params.q){
-        query += ` AND office_name LIKE "%${params.q}%"`
+        query += ` AND nama_majlis LIKE "%${params.q}%"`
     }
     if(params.sort){
         const key = params.sort.split(':')[0]
@@ -80,12 +80,12 @@ exports.findPerwakilan = (params) => {
 }
 
 exports.findPerwakilanCount = (params) => {
-    let query = `SELECT count(*) AS total FROM ${tableName} WHERE office_code not like "%.%" and office_code <> "-" and office_code not like "b%"`
+    let query = `SELECT count(*) AS total FROM ${tableName} WHERE kode_majlis not like "%.%" and kode_majlis <> "-" and kode_majlis not like "b%"`
     if(params.filter){
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
             const value = params.filter[i].split(':')[1]
-            if(key == 'office_name' || key == 'office_address'){
+            if(key == 'nama_majlis' || key == 'alamat_majlis'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else{
                 query += ` AND ${key} = ${value}`
@@ -93,7 +93,7 @@ exports.findPerwakilanCount = (params) => {
         }
     }
     if(params.q){
-        query += ` AND office_name LIKE "%${params.q}%"`
+        query += ` AND nama_majlis LIKE "%${params.q}%"`
     }
     if(params.sort){
         const key = params.sort.split(':')[0]
@@ -104,12 +104,12 @@ exports.findPerwakilanCount = (params) => {
 }
 
 exports.findCabang = (code, params) => {
-    let query = `SELECT * FROM ${tableName} WHERE office_code like "${code}.%"`
+    let query = `SELECT * FROM ${tableName} WHERE kode_majlis like "${code}.%"`
     if(params.filter){
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
             const value = params.filter[i].split(':')[1]
-            if(key == 'office_name' || key == 'office_address'){
+            if(key == 'nama_majlis' || key == 'alamat_majlis'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else{
                 query += ` AND ${key} = ${value}`
@@ -117,7 +117,7 @@ exports.findCabang = (code, params) => {
         }
     }
     if(params.q){
-        query += ` AND office_name LIKE "%${params.q}%"`
+        query += ` AND nama_majlis LIKE "%${params.q}%"`
     }
     if(params.sort){
         const key = params.sort.split(':')[0]
@@ -129,12 +129,12 @@ exports.findCabang = (code, params) => {
 }
 
 exports.findCabangCount = (code, params) => {
-    let query = `SELECT count(*) AS total FROM ${tableName} WHERE office_code like "${code}.%"`
+    let query = `SELECT count(*) AS total FROM ${tableName} WHERE kode_majlis like "${code}.%"`
     if(params.filter){
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
             const value = params.filter[i].split(':')[1]
-            if(key == 'office_name' || key == 'office_address'){
+            if(key == 'nama_majlis' || key == 'alamat_majlis'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else{
                 query += ` AND ${key} = ${value}`
@@ -142,7 +142,7 @@ exports.findCabangCount = (code, params) => {
         }
     }
     if(params.q){
-        query += ` AND office_name LIKE "%${params.q}%"`
+        query += ` AND nama_majlis LIKE "%${params.q}%"`
     }
     if(params.sort){
         const key = params.sort.split(':')[0]
@@ -158,11 +158,11 @@ exports.insert = (data) => {
 }
 
 exports.updateById = (id, data) => {
-    const query = `UPDATE ${tableName} SET ? WHERE office_id = ?`
+    const query = `UPDATE ${tableName} SET ? WHERE id_majlis = ?`
     return db.execute(query, [data, id])
 }
 
 exports.deleteById = (id) => {
-    const query = `DELETE FROM ${tableName} WHERE office_id = ?`
+    const query = `DELETE FROM ${tableName} WHERE id_majlis = ?`
     return db.execute(query, [id])
 }
