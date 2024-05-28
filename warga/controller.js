@@ -9,7 +9,7 @@ exports.init = (app) => {
             const params = {
                 per_page: req.query.per_page ? req.query.per_page : 10,
                 page: req.query.page ? req.query.page : 1,
-                filter: req.query.filter ? req.query.filter : [],
+                filter: req.query.filter ? req.query.filter.split(',') : [],
                 sort: req.query.sort ? req.query.sort : null,
                 group: req.query.group ? req.query.group : null
             }
@@ -29,7 +29,7 @@ exports.init = (app) => {
             const params = {
                 per_page: req.query.per_page ? req.query.per_page : 10,
                 page: req.query.page ? req.query.page : 1,
-                filter: req.query.filter ? req.query.filter : [],
+                filter: req.query.filter ? req.query.filter.split(',') : [],
                 sort: req.query.sort ? req.query.sort : null,
                 group: req.query.group ? req.query.group : null,
                 q: req.query.q ? req.query.q : null,
