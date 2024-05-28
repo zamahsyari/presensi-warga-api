@@ -40,14 +40,16 @@ exports.findAllCount = (params) => {
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
             const value = params.filter[i].split(':')[1]
-            if(key == 'name' || key == 'description'){
-                query += ` AND ${key} LIKE "%${value}%"`
-            }else if(key == 'from'){
-                query += ` AND start_at >= DATE("${value}")`
-            }else if(key == 'to'){
-                query += ` AND end_at <= DATE("${value}")`
-            }else{
-                query += ` AND ${tableName}.${key} = ${value}`
+            if (value !== '0' && value !== '') {
+                if(key == 'name' || key == 'description'){
+                    query += ` AND ${key} LIKE "%${value}%"`
+                }else if(key == 'from'){
+                    query += ` AND start_at >= DATE("${value}")`
+                }else if(key == 'to'){
+                    query += ` AND end_at <= DATE("${value}")`
+                }else{
+                    query += ` AND ${tableName}.${key} = ${value}`
+                }
             }
         }
     }
@@ -56,6 +58,7 @@ exports.findAllCount = (params) => {
         const value = params.sort.split(':')[1]
         query += ` ORDER BY ${key} ${value}`
     }
+    console.log('query count', query)
     return db.execute(query)
 }
 
