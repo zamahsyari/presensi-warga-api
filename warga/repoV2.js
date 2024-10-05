@@ -1,5 +1,5 @@
 const db = require('../helper/mysql')
-const tableName = 'warga'
+const tableName = 'members'
 
 const getOffset = (params) => {
     return (params.page - 1) * params.per_page
@@ -11,7 +11,7 @@ exports.findAll = (params) => {
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
             const value = params.filter[i].split(':')[1]
-            if(key == 'nama_warga' || key == 'alamat_warga'){
+            if(key == 'member_name' || key == 'member_address'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else if(key == 'member_card_id'){
                 query += ` AND ${key} = "${value}"`
@@ -23,10 +23,10 @@ exports.findAll = (params) => {
         }
     }
     if(params.q){
-        query += ` AND nama_warga LIKE "%${params.q}%"`
+        query += ` AND member_name LIKE "%${params.q}%"`
     }
     if(params.majlis){
-        query += ` AND id_majlis = ${params.majlis}`
+        query += ` AND office_id = ${params.majlis}`
     }
     if(params.sort){
         const key = params.sort.split(':')[0]
@@ -43,7 +43,7 @@ exports.findAllCount = (params) => {
         for(let i=0; i<params.filter.length; i++){
             const key = params.filter[i].split(':')[0]
             const value = params.filter[i].split(':')[1]
-            if(key == 'nama_warga' || key == 'alamat_warga'){
+            if(key == 'member_name' || key == 'member_address'){
                 query += ` AND ${key} LIKE "%${value}%"`
             }else if(key == 'member_card_id'){
                 query += ` AND ${key} = "${value}"`
@@ -55,10 +55,10 @@ exports.findAllCount = (params) => {
         }
     }
     if(params.q){
-        query += ` AND nama_warga LIKE "%${params.q}%"`
+        query += ` AND member_name LIKE "%${params.q}%"`
     }
     if(params.majlis){
-        query += ` AND id_majlis = ${params.majlis}`
+        query += ` AND office_id = ${params.majlis}`
     }
     if(params.sort){
         const key = params.sort.split(':')[0]
