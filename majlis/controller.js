@@ -9,7 +9,7 @@ exports.init = (app) => {
             const params = {
                 per_page: req.query.per_page ? req.query.per_page : 10,
                 page: req.query.page ? req.query.page : 1,
-                filter: req.query.filter ? req.query.filter : [],
+                filter: req.query.filter ? req.query.filter.split(',') : [],
                 sort: req.query.sort ? req.query.sort : null
             }
             const result = await service.findAllPerwakilan(params)
@@ -28,7 +28,7 @@ exports.init = (app) => {
             const params = {
                 per_page: req.query.per_page ? req.query.per_page : 10,
                 page: req.query.page ? req.query.page : 1,
-                filter: req.query.filter ? req.query.filter : [],
+                filter: req.query.filter ? req.query.filter.split(',') : [],
                 sort: req.query.sort ? req.query.sort : null,
                 q: req.query.q ? req.query.q : null
             }
@@ -48,7 +48,7 @@ exports.init = (app) => {
             const params = {
                 per_page: req.query.per_page ? req.query.per_page : 10,
                 page: req.query.page ? req.query.page : 1,
-                filter: req.query.filter ? req.query.filter : [],
+                filter: req.query.filter ? req.query.filter.split(',') : [],
                 sort: req.query.sort ? req.query.sort : null
             }
             const result = await service.findCabangByPerwakilan(req.query.perwakilan, params)
@@ -67,7 +67,7 @@ exports.init = (app) => {
             const params = {
                 per_page: req.query.per_page ? req.query.per_page : 10,
                 page: req.query.page ? req.query.page : 1,
-                filter: req.query.filter ? req.query.filter : [],
+                filter: req.query.filter ? req.query.filter.split(',') : [],
                 sort: req.query.sort ? req.query.sort : null,
                 q: req.query.q ? req.query.q : null
             }
