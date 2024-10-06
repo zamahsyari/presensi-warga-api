@@ -15,8 +15,8 @@ exports.findAll = (params) => {
                 query += ` AND ${key} LIKE "%${value}%"`
             }else if(key == 'member_card_id'){
                 query += ` AND ${key} = "${value}"`
-            }else if(key == 'office_id'){
-                query += ` AND ${key} = "${value}"`
+            }else if(key == 'office_id' || key === 'majlis_id'){
+                query += ` AND office_id = "${value}"`
             }else{
                 query += ` AND ${tableName}.${key} = ${value}`
             }
@@ -47,8 +47,8 @@ exports.findAllCount = (params) => {
                 query += ` AND ${key} LIKE "%${value}%"`
             }else if(key == 'member_card_id'){
                 query += ` AND ${key} = "${value}"`
-            }else if(key == 'office_id'){
-                query += ` AND ${key} = "${value}"`
+            }else if(key == 'office_id' || key === 'majlis_id'){
+                query += ` AND office_id = "${value}"`
             }else{
                 query += ` AND ${tableName}.${key} = ${value}`
             }
