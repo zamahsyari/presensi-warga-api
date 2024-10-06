@@ -14,17 +14,17 @@ exports.findAll = async (params) => {
     const baseURL = 'http://103.82.242.44:5000/files'
     data = data.map(item => {
         return {
-            id: item.id_warga,
-            ktp: item.nik,
-            name: item.nama_warga,
-            address: item.alamat_warga,
-            phone: item.phone_warga,
-            occupation: item.pekerjaan_warga,
-            is_khususi: item.khususi_warga == 1 ? true : false,
-            is_mustamik: item.mustamik == 1 ? true : false,
-            majlis_id: item.id_majlis,
-            birth_place: item.tempat_lahir_warga,
-            birth_date: item.tanggal_lahir_warga,
+            id: item.member_id,
+            ktp: item.member_ktp,
+            name: item.member_name,
+            address: item.member_address,
+            phone: item.member_phone,
+            occupation: item.member_job,
+            // is_khususi: item.member_khususi == 1 ? true : false,
+            is_mustamik: item.member_mustamik == 1 ? true : false,
+            majlis_id: item.office_id,
+            birth_place: item.member_birthplace,
+            birth_date: item.member_birthday,
         }
     })
     return {
@@ -45,17 +45,17 @@ exports.findById = async (id) => {
 
 exports.add = async (data) => {
     const newdata = {
-        nik: data.ktp,
-        nama_warga: data.name,
-        alamat_warga: data.address,
-        phone_warga: data.phone,
-        pekerjaan_warga: data.occupation,
-        khususi_warga: data.is_khususi ? 1 : 0,
-        mustamik: data.is_mustamik ? 1 : 0,
-        id_majlis: data.majlis_id,
-        tempat_lahir_warga: data.birth_place,
-        tanggal_lahir_warga: new Date(data.birth_date),
-        status_keaktifan_warga: 1,
+        member_ktp: data.ktp,
+        member_name: data.name,
+        member_address: data.address,
+        member_phone: data.phone,
+        member_job: data.occupation,
+        // member_khususi: data.is_khususi ? 1 : 0,
+        member_mustamik: data.is_mustamik ? 1 : 0,
+        office_id: data.majlis_id,
+        tempat_lahimember_birthplacer_warga: data.birth_place,
+        member_birthday: new Date(data.birth_date),
+        member_status: 1,
     }
     await repo.insert(newdata)
     return {
