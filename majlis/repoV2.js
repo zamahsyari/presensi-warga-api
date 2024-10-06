@@ -166,3 +166,8 @@ exports.deleteById = (id) => {
     const query = `DELETE FROM ${tableName} WHERE id_majlis = ?`
     return db.execute(query, [id])
 }
+
+exports.findMajlisByCode = (code) => {
+    let query = `SELECT * FROM ${tableName} WHERE kode_majlis = "${code}"`
+    return db.execute(query)
+}

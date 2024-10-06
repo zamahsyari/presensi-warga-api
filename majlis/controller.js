@@ -105,4 +105,16 @@ exports.init = (app) => {
             res.status(500).json(e.toString())
         }
     })
+
+    app.get('/majlis/v2/code/:code', middleware.auth, async (req, res) => {
+        try{
+            const result = await serviceV2.findMajlisByCode(req.params.code)
+            res.send(result)
+        }catch(e){
+            if(e.status){
+                res.status(e.status).json(e)
+            }
+            res.status(500).json(e.toString())
+        }
+    })
 }

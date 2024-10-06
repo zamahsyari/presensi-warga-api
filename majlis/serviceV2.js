@@ -60,3 +60,21 @@ exports.findById = async (id) => {
         total_page: 1
     }
 }
+
+exports.findMajlisByCode = async (code) => {
+    let data = await repo.findMajlisByCode(code)
+    data = data.map(item => {
+        return {
+            id: item.id_majlis,
+            code: item.kode_majlis,
+            name: item.nama_majlis,
+            address: item.alamat_majlis,
+        }
+    })
+    const total = data !== undefined && data.length > 0 ? 1 : 0
+    return {
+        data,
+        total_data: total,
+        total_page: total
+    }
+}
