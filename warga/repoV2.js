@@ -48,7 +48,7 @@ exports.findAllCount = (params) => {
             }else if(key == 'member_card_id'){
                 query += ` AND ${key} = "${value}"`
             }else if(key == 'office_id'){
-                query += ` AND o.${key} = "${value}"`
+                query += ` AND ${key} = "${value}"`
             }else{
                 query += ` AND ${tableName}.${key} = ${value}`
             }
