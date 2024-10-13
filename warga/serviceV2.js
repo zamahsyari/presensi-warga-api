@@ -45,16 +45,16 @@ exports.findById = async (id) => {
 
 exports.add = async (data) => {
     const newdata = {
-        member_ktp: data.ktp,
+        member_ktp: data.ktp ? data.ktp : '',
         member_name: data.name,
-        member_address: data.address,
-        member_phone: data.phone,
-        member_job: data.occupation,
+        member_address: data.address ? data.address : '',
+        member_phone: data.phone ? data.phone : '',
+        member_job: data.occupation ? data.occupation : '',
         // member_khususi: data.is_khususi ? 1 : 0,
         member_mustamik: data.is_mustamik ? 1 : 0,
         office_id: data.majlis_id,
-        tempat_lahimember_birthplacer_warga: data.birth_place,
-        member_birthday: new Date(data.birth_date),
+        member_birthplace: data.birth_place ? data.birth_place : '',
+        member_birthday: data.birth_date ? new Date(data.birth_date) : new Date('1980-01-01'),
         member_status: 1,
     }
     await repo.insert(newdata)
