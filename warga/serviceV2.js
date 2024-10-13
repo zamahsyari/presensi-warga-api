@@ -56,6 +56,7 @@ exports.add = async (data) => {
         member_birthplace: data.birth_place ? data.birth_place : '',
         member_birthday: data.birth_date ? new Date(data.birth_date) : new Date('1980-01-01'),
         member_status: 1,
+        delegation_id: 0
     }
     await repo.insert(newdata)
     return {
